@@ -53,6 +53,8 @@ def get_args():
     parser.add_argument("--seed_np", default=1, type=int)
     parser.add_argument("--seed_random", default=1, type=int)
 
+    parser.add_argument("--runner_type", default="train", type=str, help="train/test")
+
     args = parser.parse_args()
 
     return args

@@ -11,14 +11,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def make_env(args):
-    #TODO:Whether need a class 'EnvWrapper' here
-    base_dir = Path(__file__).resolve().parent.parent.parent
-    sys.path.append(str(base_dir))
-    env_wrapper_file_name = str("EnvWrapper." + str(args.env_name.replace("-", "_")))
-    env_wrapper_file_import = importlib.import_module(env_wrapper_file_name)
-    env = getattr(env_wrapper_file_import, str(args.env_name.replace("-", "_")))()
-    return env
+# def make_env(args):
+#     #TODO:Whether need a class 'EnvWrapper' here
+#     base_dir = Path(__file__).resolve().parent.parent.parent
+#     sys.path.append(str(base_dir))
+#     env_wrapper_file_name = str("EnvWrapper." + str(args.env_name.replace("-", "_")))
+#     env_wrapper_file_import = importlib.import_module(env_wrapper_file_name)
+#     env = getattr(env_wrapper_file_import, str(args.env_name.replace("-", "_")))()
+#     return env
 
 
 def action_wrapper(action):
