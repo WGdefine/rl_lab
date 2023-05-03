@@ -5,7 +5,8 @@ import sys
 base_dir = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(base_dir))
 import os
-import yaml
+# import yaml
+import json
 from types import SimpleNamespace as SN
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,27 +34,30 @@ def action_wrapper(action):
 
 def save_config(args, save_path, file_name):
     file = open(
-        os.path.join(str(save_path), str(file_name) + ".yaml"),
+        os.path.join(str(save_path), str(file_name) + ".json"),
         mode="w",
         encoding="utf-8",
     )
-    yaml.dump(args, file)
+    # yaml.dump(args, file)
+    json.dump(args, file)
     file.close()
 
 
 def save_new_paras(args, save_path, file_name):
     file = open(
-        os.path.join(str(save_path), str(file_name) + ".yaml"),
+        os.path.join(str(save_path), str(file_name) + ".json"),
         mode="w",
         encoding="utf-8",
     )
-    yaml.dump(args.as_dict(), file)
+    # yaml.dump(args.as_dict(), file)
+    json.dump(args.as_dict(), file)
     file.close()
 
 
 def load_config(log_path, file_name):
-    file = open(os.path.join(str(log_path), str(file_name) + ".yaml"), "r")
-    config_dict = yaml.load(file, Loader=yaml.FullLoader)
+    file = open(os.path.join(str(log_path), str(file_name) + ".json"), "r")
+    # config_dict = yaml.load(file, Loader=yaml.FullLoader)
+    config_dict = json.load(file)
     return config_dict
 
 
