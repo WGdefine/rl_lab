@@ -1,0 +1,10 @@
+{
+    "default":{
+        "__commet__":"模板格式",
+        "algo":"name",
+        "player_num":0,
+        "epsilon":0,
+        "actor_lr":0,
+        "criter_lr":0
+    }
+}

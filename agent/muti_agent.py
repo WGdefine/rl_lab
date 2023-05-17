@@ -1,7 +1,8 @@
 import importlib
-from base_agent import BaseAgent
+from agent.base_agent import BaseAgent
 import os
 import argparse
+import torch
 
 
 def ini_agents(args):
@@ -22,6 +23,8 @@ class MultiRLAgents(BaseAgent):
         self.args = args
         self.algo = ini_agents(args)
         self.set_agent()
+        self.n_agents = self.algo.n_agents
+        self.use_single_network = self.algo.use_single_network
 
     def set_agent(self):
         self.agent = self.algo.agents
@@ -56,8 +59,27 @@ class MultiRLAgents(BaseAgent):
     def learn(self):
         self.algo.learn()
 
-    def save(self, p_dir, epoch):
-        self.algo.save(p_dir, epoch)
+    def save(self):
+        for agent_id in range(self.n_agents):
+            if self.use_single_network:
+                policy_model = self.agent[agent_id].policy.model
+                torch.save(policy_model.state_dict(), str(self.save_dir) + "/model_agent" + str(agent_id) + ".pt")
+            else:
+                policy_actor = self.agent[agent_id].policy.actor
+                torch.save(policy_actor.state_dict(), str(self.save_dir) + "/actor_agent" + str(agent_id) + ".pt")
+                policy_critic = self.agent[agent_id].policy.critic
+                torch.save(policy_critic.state_dict(), str(self.save_dir) + "/critic_agent" + str(agent_id) + ".pt")
+    
+    def load(self):
+        for agent_id in range(self.num_agents):
+            if self.use_single_network:
+                policy_model_state_dict = torch.load(str(self.model_dir) + '/model_agent' + str(agent_id) + '.pt')
+                self.policy[agent_id].model.load_state_dict(policy_model_state_dict)
+            else:
+                policy_actor_state_dict = torch.load(str(self.model_dir) + '/actor_agent' + str(agent_id) + '.pt')
+                self.policy[agent_id].actor.load_state_dict(policy_actor_state_dict)
+                policy_critic_state_dict = torch.load(str(self.model_dir) + '/critic_agent' + str(agent_id) + '.pt')
+                self.policy[agent_id].critic.load_state_dict(policy_critic_state_dict)
 
 if __name__=="__main__":
     param=argparse.ArgumentParser()

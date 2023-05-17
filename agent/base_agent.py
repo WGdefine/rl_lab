@@ -1,7 +1,11 @@
+import torch
+from abc import abstractmethod
+
 class BaseAgent(object):
     def __init__(self, args):
         self.args = args
         self.agent = list()
+
 
     # inference
     def choose_action_to_env(self, observation, train=True):
@@ -17,10 +21,18 @@ class BaseAgent(object):
         for agent in self.agent:
             agent.learn()
 
-    def save(self, save_path, episode):
-        for agent in self.agent:
-            agent.save(save_path, episode)
+    #TODO:实现agent网络参数的保存和加载
+    @abstractmethod
+    def save(self):
+        '''保存网络参数'''
+        # for agent in self.agent:
+        #     agent.save(save_path, episode)
 
-    def load(self, file):
-        for agent in self.agent:
-            agent.load(file)
+    @abstractmethod
+    def load(self):
+        '''加载网络参数'''
+        # for agent in self.agent:
+        #     agent.load(file)
+
+if __name__ == "__main__":
+    test=BaseAgent([])

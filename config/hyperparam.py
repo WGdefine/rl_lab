@@ -1,12 +1,12 @@
-import attrs
+import attr
 import json
 
-@attrs.define
+@attr.define
 class HyperparamSettings:
     use_network: bool = True
     marl: bool = False
 
-@attrs.define
+@attr.define
 class EnvSettingDefault:
     env_name: str = "classic_CartPole-v0"
     obs_space: int = 100
@@ -15,23 +15,23 @@ class EnvSettingDefault:
     action_continuous: bool = False
     n_player: int = 1
 
-@attrs.define
+@attr.define
 class TrainingDefault:
     max_episodes: int = 1000
     evaluate_rate: int = 50
     render: bool = False
     save_interval: int = 100
 
-@attrs.define
+@attr.define
 class SeedSetting:
     seed_nn: int = 1
     seed_np: int = 1
     seed_random: int = 1
 
-@attrs.define
+@attr.define
 class RunnerSetting:
-    hyperparameters: HyperparamSettings = attrs.field()
-    envparameters: EnvSettingDefault = attrs.field()
-    trainingparameters: TrainingDefault = attrs.field()
-    seedparameters: SeedSetting = attrs.field()
+    hyperparameters: HyperparamSettings = attr.field()
+    envparameters: EnvSettingDefault = attr.field()
+    trainingparameters: TrainingDefault = attr.field()
+    seedparameters: SeedSetting = attr.field()
     algo: str = "DQN"

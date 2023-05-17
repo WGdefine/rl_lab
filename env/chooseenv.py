@@ -4,17 +4,21 @@
 # 描述：选择运行环境，需要维护env/__ini__.py && config.json（存储环境默认参数）
 
 import json
-import env
+# import env
 import os
+import importlib
 
 
 def make(env_type, conf=None, seed=None):
-    file_path = os.path.join(os.path.dirname(__file__), 'config.json')
+    # file_path = os.path.join(os.path.dirname(__file__), 'config.json')
+    file_path = "config/param/env/config.json"
     if not conf:
         with open(file_path) as f:
             conf = json.load(f)[env_type]
     class_literal = conf['class_literal']
-    return getattr(env, class_literal)(conf)
+    env_wrapper_name = str("env.wrapper."+str(class_literal)+"_wrapper")
+    env_wrapper_import = importlib.import_module(env_wrapper_name)
+    return getattr(env_wrapper_import, class_literal+"Wrapper")(conf)
 
 
 if __name__ == "__main__":
