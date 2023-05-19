@@ -7,6 +7,7 @@ import json
 # import env
 import os
 import importlib
+from utils.utils import *
 
 
 def make(env_type, conf=None, seed=None):
@@ -18,7 +19,8 @@ def make(env_type, conf=None, seed=None):
     class_literal = conf['class_literal']
     env_wrapper_name = str("env.wrapper."+str(class_literal)+"_wrapper")
     env_wrapper_import = importlib.import_module(env_wrapper_name)
-    return getattr(env_wrapper_import, class_literal+"Wrapper")(conf)
+    param = json_to_args(conf)
+    return getattr(env_wrapper_import, class_literal[0].upper()+class_literal[1:].lower()+"Wrapper")(param)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,20 @@
+{
+    "sac":{
+        "a_lr":0.0001,
+        "c_lr":0.0001,
+        "gamma":0.99,
+        "tau":0.005,
+        "batch_size":64,
+        "hidden_size":128,
+        "alpha_lr":0.0001,
+        "buffer_capacity":1024,
+        "alpha":0.3,
+        "num_hid_layer":1,
+        "tune_entropy":false,
+        "target_entropy_ratio":0.7,
+        "epsilon":0.2,
+        "epsilon_end":0.05,
+        "max_episodes":1000,
+        "target_replace":100
+    }
+}

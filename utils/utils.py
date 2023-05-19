@@ -10,16 +10,15 @@ import json
 from types import SimpleNamespace as SN
 import matplotlib.pyplot as plt
 import numpy as np
+import argparse
 
 
-# def make_env(args):
-#     #TODO:Whether need a class 'EnvWrapper' here
-#     base_dir = Path(__file__).resolve().parent.parent.parent
-#     sys.path.append(str(base_dir))
-#     env_wrapper_file_name = str("EnvWrapper." + str(args.env_name.replace("-", "_")))
-#     env_wrapper_file_import = importlib.import_module(env_wrapper_file_name)
-#     env = getattr(env_wrapper_file_import, str(args.env_name.replace("-", "_")))()
-#     return env
+def json_to_args(json_list):
+    parser = argparse.ArgumentParser()
+    t_args = argparse.Namespace()
+    t_args.__dict__.update(json_list)
+    args = parser.parse_args(namespace=t_args)
+    return args
 
 
 def action_wrapper(action):

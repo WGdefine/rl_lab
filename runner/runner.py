@@ -22,7 +22,7 @@ class Runner(BaseRunner):
 
         # multi_part_agent_ids, actions_space = self.get_players_and_action_space_list()
 
-        for i_epoch in range(1, self.param.max_episodes + 1):
+        for i_epoch in range(1, self.train_config.max_episodes + 1):
             self.env.set_seed(random.randint(0, sys.maxsize))
             state = self.env.reset()
             step = 0
@@ -32,7 +32,7 @@ class Runner(BaseRunner):
                 joint_act = self.get_joint_action_eval(
                     state
                 )
-                next_state, reward, done, info_before, info_after = self.env.step(
+                next_state, reward, done, info = self.env.step(
                     joint_act
                 )
                 self.insert_memory(state, next_state, reward, np.float32(done))
@@ -48,15 +48,15 @@ class Runner(BaseRunner):
             if self.learn_terminal and self.runner_type == 'train':
                 self.agents.learn(writter=self.writter, epoch=i_epoch)
             print("i_epoch: ", i_epoch, "Gt: ", "%.2f" % Gt)
-            reward_tag = "reward"
+            # reward_tag = "reward"
             # self.writer.add_scalars(reward_tag, global_step=i_epoch,
             #                         tag_scalar_dict={'return': Gt})
             self.writter.add_scalar("rollout/Rewards", Gt, global_step=i_epoch)
 
-            if i_epoch % self.param.save_interval == 0:
-                self.agents.save(self.run_dir, i_epoch)
+            if i_epoch % self.train_config.save_interval == 0:
+                self.agents.save(i_epoch)
 
-            if i_epoch % self.param.evaluate_rate == 0 and i_epoch > 1:
+            if i_epoch % self.train_config.evaluate_rate == 0 and i_epoch > 1:
                 Gt_real = self.evaluate(i_epoch)
                 # self.writer.add_scalars('Eval/rewards', global_step=i_epoch,
                 #                         tag_scalar_dict={'return': Gt_real})
@@ -79,7 +79,7 @@ class Runner(BaseRunner):
                 joint_act = self.get_joint_action_eval(
                     state
                 )
-                next_state, reward, done, _, _ = self.env.step(joint_act)
+                next_state, reward, done, _, = self.env.step(joint_act)
                 state = next_state
                 Gt_real += reward
                 if done:

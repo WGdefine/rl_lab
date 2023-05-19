@@ -1,0 +1,18 @@
+{
+    "marl":false,
+    "learn_terminal":false,
+    "learn_freq":1,
+    "algo":"sac",
+    "use_single_network":false,
+    "max_episodes":5000,
+    "n_player":1,
+    "action_continuous":false,
+    "obs_space":4,
+    "action_space":2,
+    "policy_type":"discrete",
+    "save_interval":100,
+    "evaluate_rate":50,
+    "seed_nn":1,
+    "seed_np":1,
+    "seed_random":1
+}

@@ -12,7 +12,7 @@
         "act_box": {"discrete_n": 19}
       },
       "classic_MountainCar-v0": {
-        "class_literal": "CCGame",
+        "class_literal": "gym_env",
         "n_player": 1,
         "is_obs_continuous": true,
         "is_act_continuous": false,
@@ -20,6 +20,17 @@
         "game_name": "MountainCar-v0",
         "agent_nums": [1],
         "max_step": 200,
+        "obs_type": ["vector"]
+      },
+      "classic_CartPole-v0": {
+        "class_literal": "gym_env",
+        "act_box": {"discrete_n": 2},
+        "agent_nums": [1],
+        "game_name": "CartPole-v0",
+        "is_act_continuous": false,
+        "is_obs_continuous": true,
+        "max_step": 200,
+        "n_player": 1,
         "obs_type": ["vector"]
       }
 }

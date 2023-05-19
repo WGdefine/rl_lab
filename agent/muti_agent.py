@@ -4,24 +4,11 @@ import os
 import argparse
 import torch
 
-
-def ini_agents(args):
-    # agent_file_path=os.getcwd()+"\\agents"
-    # print("agent path:{}".format(agent_file_path))
-    agent_file_name = str("agents.algo." + str(args.algo))
-    agent_file_import = importlib.import_module(agent_file_name)
-    agent_class_name = args.algo.upper()
-
-    # 实例化agent
-    agent = getattr(agent_file_import, agent_class_name)(args)
-    return agent
-
-
 class MultiRLAgents(BaseAgent):
     def __init__(self, args):
         super(MultiRLAgents, self).__init__(args)
         self.args = args
-        self.algo = ini_agents(args)
+        self.algo = self.ini_agents(args)
         self.set_agent()
         self.n_agents = self.algo.n_agents
         self.use_single_network = self.algo.use_single_network
@@ -86,4 +73,3 @@ if __name__=="__main__":
     param.add_argument("--algo", default="msac", type=str)
     arg=param.parse_args()
     print("param:{}".format(arg))
-    ini_agents(arg)
